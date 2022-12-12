@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    (function () {
+      const arr = ['clp', '佩奇', '乔治']
+      function f1() {
+        console.log(arr)
+      }
+      function f2() {}
+      function f3() {}
+      // 向全局window对象中添加f1属性
+      window.f1 = f1
+    })()
+    f1() // ['clp', '佩奇', '乔治']
+  </script>
+</body>
+</html>

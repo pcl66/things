@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // // 创建人的单例的构造器
+    // function Person() {
+    //   (function () {
+    //     function Person(name = '小明', age = 12, sex = '男') {
+    //       this.name = name
+    //       this.age = age
+    //       this.sex = sex
+    //     }
+    //     let person = null
+    //     return function () {
+    //       console.log('xxxxx')
+    //       if (!person) {
+    //         person = new Person()
+    //         console.log('person', person)
+    //       }
+    //       return person
+    //     }
+    //   })()
+    // }
+    const Person = (function(){
+      function Person(name = '小明', age = 12, sex = '男') {
+        this.name = name
+        this.age =age
+        this.sex = sex
+      }
+      let person = null
+      return function() {
+        if(!person) person = new Person()
+        return person
+      }
+    })()
+    const p1 = new Person()
+    const p2 = new Person()
+    console.log(p1, p2)
+    console.log(p1 === p2)
+  </script>
+</body>
+
+</html>

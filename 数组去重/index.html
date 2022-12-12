@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const data = [1, 2, 3, 4, 4, 2, 3, '5', '5']
+    // 方式1
+    const r1 = [...(new Set(data))]
+    console.log('r1', r1)
+    // 方式2
+    const r2 = []
+    data.forEach(item => {
+      if (!r2.includes(item)) {
+        r2.push(item)
+      }
+    })
+    console.log('r2', r2)
+    // 方式3 使用map去重
+    const map1 = new Map()
+    data.forEach(item => {
+      map1.set(item, 1)
+    })
+    console.log('map1',map1)
+    console.log([...map1.keys()])
+  </script>
+</body>
+
+</html>

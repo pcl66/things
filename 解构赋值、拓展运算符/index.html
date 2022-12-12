@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 解构赋值
+    // const { name, age, price } = person
+    // console.log('name', name)
+    // console.log('age', age)
+    // console.log('price', price)
+    const person = {
+      name: 'clp',
+      age: 18,
+      price: '200000000'
+    }
+    
+    // 解构赋值 + 剩余参数
+    // 对象
+    const { name, ...rest } = person
+    console.log('name',name)
+    console.log('rest',rest) // 剩余属性组成的新对象
+    console.log('---------------------')
+    // 数组
+    const [a, , , ,...r] = [1,2,3,4,5,6,{name: 'xxx', age: 18}]
+    console.log('a',a)
+    console.log('r',r) // 剩余值组成的新数组
+    console.log('---------------------')
+    // 函数中的形参
+    const f = (x, ...rest) => {
+      console.log('x',x)
+      console.log('rest',rest) // 传入的多余参数所组成的数组
+    }
+    f(1,2,3,4,5,[6,7],true,{name: 'wjd', age: '18'})
+    console.log('---------------------')
+
+    // 浅拷贝
+    const personNew1 = {...person}
+    const personNew2 = {...person, name: 'clp', desc: 'a  man'} // 新值替换旧值
+    console.log('personNew1',personNew1)
+    console.log('personNew2',personNew2)
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 创建分页组件需要的 按钮数组
+    // btnCount: 最多能看到几个按钮
+    // total: 总条数
+    // size: 每页几条
+    // page: 当前第几页
+    function f(total, size, page, btnCount = 5) {
+      // show me your code
+      // 最大页码
+      const maxPage = Math.ceil(total / size)
+      // 间隔
+      const gap = Math.floor((btnCount - 1) / 2) //向下取整，如果btnCount为偶数，则page靠近左侧
+      // 结果数组
+      const arr = []
+      // 异常处理
+      if(page < 1 || page >maxPage) return console.log('page输入有误!')
+      // 1. page落在左侧禁区 
+      if(page <= 1 + gap && page>=1) {
+        for(let i = 0; i< btnCount; i++) {
+          arr.push(i+1)
+        }
+        console.log(arr)
+        return arr
+      }
+      // 2. page落在右侧禁区
+      if(page >= (maxPage - gap) && page <= maxPage) {
+        for(let i = 0; i< btnCount; i++) {
+          arr.push(maxPage-btnCount+1+i)
+        }
+        console.log(arr)
+        return arr
+      }
+      // 3. page落在安全区
+      for(let i = 0; i<btnCount; i++) {
+        arr.push(page-gap+i)
+      }
+      console.log(arr)
+      return arr
+    }
+    // 在可能的情况下，让page处于正中间
+    f(101, 10, 1, 5)  // ==> [1, 2, 3, 4, 5]
+    f(101, 10, 12, 5)  // ==> [5, 6, 7, 8, 9]
+    f(101, 10, 2, 5)  // ==> [1, 2, 3, 4, 5]
+    f(101, 10, 5, 5)  // ==> [3, 4, 5, 6, 7]
+  </script>
+</body>
+
+</html>

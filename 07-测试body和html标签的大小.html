@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 200px;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 style="height: 50px; width: 100px; padding: 20px; margin: 20px; border: 1px solid black; text-align: center;">标题</h1>
+  <h2 style="width: 300px;">h2</h2>
+  <input type="text">
+  <script>
+    const html_tag = document.documentElement
+    const body_tag = document.body
+    const h1 = document.querySelector('h1')
+    const h2 = document.querySelector('h2')
+    const input_tag = document.querySelector('input')
+    console.log('html height:',html_tag.clientHeight, 'html width:', html_tag.clientWidth)
+    console.log('body height:',body_tag.clientHeight, 'body width:', body_tag.clientWidth)
+    console.log(h1.clientHeight)
+    console.log(h1.style.width)
+    console.log(h2.clientHeight)
+    console.log(input_tag.clientHeight)
+    console.log(input_tag.clientWidth)
+  </script>
+</body>
+</html>

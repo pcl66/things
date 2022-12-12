@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 2000px;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    /*
+      节流：控制事件的处理次数，单位事件内才执行一个回调中的业务逻辑代码
+    */ 
+    // let flag = true
+    // window.addEventListener('scroll', function(){
+    //   if(flag){
+    //     setTimeout(()=>{
+    //       console.log('hello world!')
+    //       flag = true
+    //     }, 500)
+    //   }
+    //   flag = false
+    // })
+
+function throttle(fn, delay){
+  let flag = true
+  return function(){
+    if(flag){
+      setTimeout(()=>{
+        // 执行传入的回调函数
+        fn.call(this)
+        // 执行完毕后将flag设置true
+        flag = true
+      }, delay)
+    }
+    flag = false
+  }
+}
+window.addEventListener('scroll', throttle(function(){
+  console.log('hello world!')
+}, 500))
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    Object.prototype[Symbol.iterator] = function () {
+      let _self = this
+      let index = 0
+      let keys = Reflect.ownKeys(_self)
+      return {
+        next() {
+          if (index < keys.length) {
+            return { value: _self[keys[index++]], done: false }
+          }
+          return { value: undefined, done: true }
+        }
+      }
+    }
+    const obj = {
+      name: '小猪佩奇',
+      age: '3岁',
+      [Symbol('secret')]: '秘密',
+      2: '2',
+      1: '1'
+    }
+    Object.prototype.mySelf = 'Object新增属性'
+    for (item of obj) {
+      console.log(item)
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // const s = Symbol('Symbol.iterator')
+    // const t = Symbol('测试')
+    // const obj = {[s]: '嗨嗨嗨', [t]: '123'}
+    // console.log(obj)
+    // console.log([1,2].__proto__)
+    async function fn() {
+      try {
+        console.log(0)
+        const { data: res } = await Promise.reject({ data: { name: '1', age: 18 } })
+        console.log(1)
+        console.log(2)
+      } catch (e) {
+        console.dir(e)
+      }
+      try {
+        const a = Promise.reject({ data: { name: '1', age: 18 } }).catch(e => e)
+        const b = Promise.resolve('成功').then(v=>{
+          console.log(123)
+        })
+        console.dir(a)
+        console.log(b)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fn()
+  </script>
+</body>
+
+</html>

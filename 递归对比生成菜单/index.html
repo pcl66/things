@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /** 前端预定义的路由 */
+    const dynamicRoutes = [
+      {
+        /** 一级路由 */
+        path: '/order',
+        name: 'order-manage',
+        component: "xxx",
+        meta: {
+          requiresAuth: true,
+          name: '订单管理',
+          icon: 'icon-email'
+        },
+        children: [
+          {
+            /** 二级路由 */
+            path: 'list',
+            name: 'order-list',
+            component: "xxx",
+            meta: {
+              /** 匹配规则 */
+              name: "订单列表",
+              icon: 'icon-name'
+            }
+          },
+          {
+            /** 二级路由 */
+            path: 'product',
+            name: 'order-product',
+            component: "xxx",
+            meta: {
+              /** 匹配规则 */
+              name: "生产管理",
+              icon: 'icon-service'
+            },
+            children: [
+              /** 三级路由 */
+              {
+                path: 'list',
+                name: 'product-list',
+                component: "xxx",
+                meta: {
+                  /** 匹配规则 */
+                  name: "生产列表",
+                  icon: 'icon-nav'
+                },
+              },
+              {
+                path: 'review',
+                name: 'review-manage',
+                component: "xxx",
+                meta: {
+                  /** 匹配规则 */
+                  name: "审核管理",
+                  icon: 'icon-finance-manage'
+                },
+              },
+              {
+                path: 'returnGoods',
+                name: 'return-goods',
+                component: "xxx",
+                meta: {
+                  /** 匹配规则 */
+                  name: "退货管理",
+                  icon: 'icon-product-manage'
+                },
+              },
+            ]
+          },
+          {
+            /** 二级路由 */
+            path: '/goods',
+            component: "xxx",
+            name: 'goods',
+            meta: {
+              name: '产品管理',
+              icon: 'icon-order-manage'
+            },
+            children: [
+              /** 三级路由 */
+              {
+                path: 'list',
+                name: 'goods-list',
+                component: "xxx",
+                meta: {
+                  name: '产品列表',
+                  icon: 'icon-home'
+                }
+              },
+              {
+                path: 'classify',
+                name: 'goods-classify',
+                component: "xxx",
+                meta: {
+                  name: '产品分类',
+                  icon: 'icon-product-manage'
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: '/403',
+        name: 'Forbidden',
+        component: "xxx"
+      },
+      {
+        path: "/product",
+        name: "Product",
+        meta: {
+          name: "产品管理"
+        }
+      }
+    ]
+    /** 后端返回的权限信息 */
+    const auth = [
+      {
+        name: "订单管理",
+        children: [
+          {
+            name: "订单列表",
+          },
+          {
+            name: "生产管理",
+            children: [
+              {
+                name: "生产列表",
+              },
+              {
+                name: "审核管理",
+              }
+            ]
+          },
+          {
+            name: "退货管理",
+          }
+        ]
+      },
+      {
+        name: "产品管理",
+        children: [
+          {
+            name: "产品列表",
+          },
+          {
+            name: "产品分类"
+          }
+        ]
+      }
+    ]
+    /** 对比函数 */
+    const diffAuth = (allRoutes, auth) => {
+      const tempRoutes = []
+      allRoutes.forEach((v, i) => {
+        auth.forEach((val, it) => {
+          if (val.name === v?.meta?.name) {
+            if (v.children && v.children.length > 0) {
+              v.children = diffAuth(v.children, val.children)
+            }
+            tempRoutes.push(v)
+          }
+        })
+        // const flag = auth.findIndex((value, index) => v?.meta?.name === value.name)
+        // if(flag !== -1) {
+        //   tempRoutes.push(v)
+        // }
+      })
+      return tempRoutes
+    }
+
+    const finalRoutes = diffAuth(dynamicRoutes, auth)
+
+    console.log("finalRoutes", finalRoutes)
+  </script>
+</body>
+
+</html>

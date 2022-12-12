@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const p1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('p1')
+      }, 3000)
+    })
+    const p2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('p2')
+      }, 1000)
+    })
+    const p3 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject('p3')
+      }, 2000)
+    })
+    console.log('p1',p1.catch(e => {
+      console.log('e', e)
+      return e
+    }))
+    const newArr = [p1, p2, p3].map(item => item.catch(e => e))
+    console.log(newArr)
+    const p = Promise.all([p1, p2, p3].map(item => item.catch(e => e)))
+    p.then(value => {
+      console.log(value)
+    }).catch(reason => {
+      console.log(reason)
+    })
+  </script>
+</body>
+</html>

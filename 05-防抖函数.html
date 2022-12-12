@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text">
+  <script>
+    /* 
+      1.函数防抖 : 单位时间内，频繁触发一个事件， 以'最后一次'触发为准
+      2.防抖应用场景: 输入框输入事件
+      3.防抖流程 :
+        3.1 声明一个全局变量存储定时器ID
+        3.2 每一次触发交互的时候，先清除上一次定时器。 然后把本次事件处理代码放入定时器中
+    */
+    // let timeID = null
+    // document.querySelector('input').addEventListener('input', function () {
+    //   clearTimeout(timeID)
+    //   timeID = setTimeout(() => {
+    //     console.log(this.value)
+    //   }, 100)
+    // })
+
+
+    // 利用闭包封装一个防抖函数
+    function debounce(fn, delay, ...rest) {
+      let timeID = null
+      return function(e) {
+        clearTimeout(timeID)
+        timeID = setTimeout(() => {
+          fn.call(this,e,rest)
+        }, delay)
+      }
+    }
+    const i = 'clp'
+    document.querySelector('input').addEventListener('input', debounce(function(e,a){
+      console.log(this.value)
+      console.log(e)
+      console.log(a)
+    }, 1000, 'clp', 'wjd'))
+
+    function f1(a, b, c, d='1', ...rest) {
+      console.log(a)
+      console.log(b)
+      console.log(c)
+      console.log(d)
+      console.log(rest)
+    }
+    f1(1,2,3,4,5,6,7)
+  </script>
+</body>
+
+</html>
