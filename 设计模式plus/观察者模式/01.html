@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+
+    /*
+      观察者模式
+      观察者监控一个对象的状态，当被观察者状态发生改变时，触发观察者自己的技能
+    
+    */
+
+
+
+
+
+    // 观察者构造函数
+    class Observer {
+      constructor(name, fn) {
+        this.name = name
+        this.fn = fn
+      }
+    }
+
+    // 被观察者构造函数
+    class Subject {
+      constructor(state) {
+        this.state = state
+        this.observers = []
+      }
+      // 更新状态
+      setState(state) {
+        this.state = state
+        this.observers.forEach((v) => {
+          v.fn(state)
+        })
+      }
+
+      addObserver(ob) {
+        this.observers.push(ob)
+      }
+
+      deleteObserver(name) {
+        this.observers.filter((v) => v.name !== name)
+      }
+    }
+
+    const xz = new Observer('校长', (state) => {console.log(state + '校长打死你')})
+    const xs = new Subject('初始状态')
+    xs.addObserver(xz)
+    xs.setState('吃饭')
+  </script>
+</body>
+</html>

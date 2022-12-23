@@ -12,9 +12,10 @@
   <script>
     (function () {
       const class2type = {}
-        ;["Boolean", "String", "Number", "Function", "Array", "Date", "RegExp", "Object", "Error", "Symbol"].forEach(name => {
-          class2type[`[object ${name}]`] = name.toLowerCase()
-        })
+      ;["Boolean", "String", "Number", "Function", "Array", "Date", "RegExp", "Object", "Error", "Symbol"].forEach(name => {
+        class2type[`[object ${name}]`] = name.toLowerCase()
+      })
+      console.log(class2type)
       function toType(obj) {
         if (obj == null) {
           return obj + ''
@@ -29,6 +30,7 @@
     console.log(toType(null))//null
     console.log(toType(undefined))//undefined
     console.log(toType(/^1$/))//regexp
+    console.log(toType('object')) 
   </script>
 </body>
 

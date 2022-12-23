@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型链继承
+    function Person() {
+      this.name = '小明'
+      this.hobby = ['吃饭']
+      this.eat = function() {
+        console.log('会吃东西')
+      }
+    }
+    const a = new Person()
+    a.prototype = Person
+    console.log(a.name)
+  </script>
+</body>
+</html>   
