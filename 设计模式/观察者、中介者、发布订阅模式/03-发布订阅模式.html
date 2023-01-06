@@ -8,7 +8,36 @@
 </head>
 <body>
   <script>
-    
+    class EventHub {
+      map = {}
+      on(name, fn){
+        if(!this.map[name]) {
+          this.map[name] = []
+        }
+        this.map[name].push(fn)
+      }
+      emit(name, payload){
+        if(!this.map[name]) return
+        this.map[name].forEach((v) => {
+          v(payload)
+        })
+      }
+      off(name, fn){
+        if(!this.map[name]) return
+        const index = this.map[name].indexOf(fn)
+        if(index < 0) return
+        this.map[name].splice(index, 1)
+      }
+    }
+    // 测试代码
+    const hub = new EventHub()
+    const x = (payload) => {console.log(payload)}
+    const y = (payload) => {console.warn(payload)}
+    hub.on('click', x)
+    hub.on('click', y)
+    hub.emit('click', 'yyy')
+    hub.emit('click', 'xxx')
+    hub.off('click', x)
   </script>
 </body>
 </html>
