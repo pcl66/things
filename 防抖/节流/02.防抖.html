@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" />
+  <script>
+    function debounce(fn, delay=200) {
+      let time = null
+      return function(...args) {
+        if(time) {
+          clearTimeout(time)
+        }
+        time = setTimeout(() => {
+          fn.call(this, ...args)
+        }, delay)
+      }
+    }
+    const input = document.querySelector('input')
+    input.addEventListener('input', debounce(function(e) {
+      console.log(e.target.value)
+    }, 1000))
+  </script>
+</body>
+</html>

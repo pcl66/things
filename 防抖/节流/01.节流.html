@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" />
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script>
+    // function throttle(fn, delay) {
+    //   let flag = true
+    //   return function(...args) {
+    //     if(!flag) return
+    //     setTimeout(() => {
+    //       fn.call(this, ...args)
+    //       flag = true
+    //     }, delay)
+    //     flag = false
+    //   }
+    // }
+    console.log(window)
+    console.log(_.chunk(['a', 'b', 'c', 'd']))
+    console.log(_())
+    console.log(_().throttle)
+    // function throttle(fn, delay) {
+    //   let flag = true
+    //   return function (e) {
+    //     if (flag) {
+    //       setTimeout(() => {
+    //         // 执行传入的回调函数
+    //         fn.call(this, e)
+    //         // 执行完毕后将flag设置true
+    //         flag = true
+    //       }, delay)
+    //     }
+    //     flag = false
+    //   }
+    // }
+    function throttle(fn, delay=500) {
+    let flag = true
+    return function(...args){
+        if(!flag) return
+        setTimeout(() => {
+            fn.call(this, ...args)
+            flag = true
+        }, delay)
+        flag = false
+    }
+}
+    const input = document.querySelector('input')
+    input.addEventListener('input', throttle(function(e) {
+      console.log(e.target.value)
+      console.log('输入了')
+      console.log(this)
+    }, 100))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    Object.prototype[Symbol.iterator] = function () {
+      const that = this
+      const length = Reflect.ownKeys(this).length
+      const keys = Reflect.ownKeys(this)
+      let index = 0
+      return {
+        next() {
+          if (index <= length - 1) {
+            return {
+              value: that[keys[index++]],
+              done: false
+            }
+          } else {
+            return {
+              value: undefined,
+              done: true
+            }
+          }
+        }
+      }
+    }
+    const obj = {
+      name: '佩奇',
+      age: 12,
+      [Symbol('secret')]: '银行卡密码：123456',
+      hobby: ['吃饭', '睡觉']
+    }
+    for (v of obj) {
+      console.log(v)
+    }
+  </script>
+</body>
+
+</html>
