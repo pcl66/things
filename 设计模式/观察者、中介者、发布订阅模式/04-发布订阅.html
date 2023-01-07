@@ -31,15 +31,6 @@
         this.map[name].splice(index, 1)
       }
     }
-    // 测试代码
-    const hub = new EventHub()
-    const x = (payload) => { console.log(payload) }
-    const y = (payload) => { console.warn(payload) }
-    hub.on('click', x)
-    hub.on('click', y)
-    hub.emit('click', 'yyy')
-    hub.emit('click', 'xxx')
-    hub.off('click', x)
   </script>
 </body>
 
