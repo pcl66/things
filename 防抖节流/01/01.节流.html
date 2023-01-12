@@ -41,19 +41,19 @@
     //     flag = false
     //   }
     // }
-    function throttle(fn, delay=500) {
-    let flag = true
-    return function(...args){
-        if(!flag) return
+    function throttle(fn, delay = 500) {
+      let flag = true
+      return function (...args) {
+        if (!flag) return
         setTimeout(() => {
-            fn.call(this, ...args)
-            flag = true
+          fn.call(this, ...args)
+          flag = true
         }, delay)
         flag = false
+      }
     }
-}
     const input = document.querySelector('input')
-    input.addEventListener('input', throttle(function(e) {
+    input.addEventListener('input', throttle(function (e) {
       console.log(e.target.value)
       console.log('输入了')
       console.log(this)
