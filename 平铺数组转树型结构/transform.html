@@ -58,8 +58,40 @@
       return result
     }
 
-    const res = transformToTree(rawData)
-    console.log(res)
+    // const res = transformToTree(rawData)
+    // console.log(res)
+
+    const array2Tree = (data, parentId) => {
+      const result = []
+      data.forEach(item => {
+        if(item.pid === parentId) {
+          if(array2Tree(data, item.id).length > 0) {
+            result.push({...item, children: array2Tree(data, item.id)})
+          } else {
+            result.push({...item})
+          }
+        }
+      })
+      return result
+    }
+    const res1 = array2Tree(rawData, '')
+    console.log(res1)
+
+    const tree2Array = (data) => {
+      const result = []
+      data.forEach(item => {
+        if(item.children) {
+          const targetItem = {...item}
+          delete targetItem.children
+          result.push(targetItem, ...tree2Array(item.children))
+        } else {
+          result.push({...item})
+        }
+      })
+      return result
+    }
+    const res2 = tree2Array(res1)
+    console.log(res2)
   </script>
 </body>
 
