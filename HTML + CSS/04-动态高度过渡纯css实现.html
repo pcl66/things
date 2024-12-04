@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .demo1 {
+      max-height: 30px;
+      overflow: hidden;
+      border: 1px solid gray;
+      transition: all 750ms;
+    }
+
+    .demo1:hover {
+      max-height: 900px;
+    }
+
+    .demo2 {
+      border: 1px solid gray;
+      transform: scale(1, 0);
+      transition: all 750ms;
+      transform-origin: left top;
+    }
+
+    .demo2.active {
+      transform: scale(1, 1);
+    }
+
+    .h1 {
+      cursor: pointer;
+    }
+
+    .demo3 {
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      transition: all .75s;
+    }
+    .demo3 div {
+      min-height: 0;
+    }
+    .demo3.active{
+      grid-template-rows: 1fr;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>demo1 max-height</h1>
+    <div class="demo1">
+      <h1>1</h1>
+      <h1>1</h1>
+      <h1>1</h1>
+      <h1>1</h1>
+      <h1>1</h1>
+    </div>
+    <hr>
+    <h1 class="h1">demo2 scale</h1>
+    <div class="demo2">
+      <h1>2</h1>
+      <h1>2</h1>
+      <h1>2</h1>
+      <h1>2</h1>
+      <h1>2</h1>
+    </div>
+    <hr>
+    <h1 class="h-demo3">demo3 grid fr</h1>
+    <div class="demo3">
+      <div>
+        <h1>3</h1>
+        <h1>3</h1>
+        <h1>3</h1>
+        <h1>3</h1>
+        <h1>3</h1>
+      </div>
+    </div>
+  </div>
+  <script>
+    const oH1 = document.querySelector('.h1')
+    const oDemo2 = document.querySelector('.demo2');
+    oH1.addEventListener('mouseenter', function() {
+      oDemo2.classList.add('active')
+    })
+    oH1.addEventListener('mouseleave', function() {
+      oDemo2.classList.remove('active')
+    })
+    const oH3 = document.querySelector('.h-demo3')
+    const oDemo3 = document.querySelector('.demo3')
+    oH3.addEventListener('click', function() {
+      if(oDemo3.classList.contains('active')) {
+        oDemo3.classList.remove('active')
+        return
+      }
+      oDemo3.classList.add('active')
+    })
+  </script>
+</body>
+
+</html>
