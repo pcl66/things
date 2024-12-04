@@ -1,6 +1,6 @@
 // const a = [1,2,3,5,3,2,3,88,1,0,2,100,55]
-// let a = [366, 240, 866, 115,  -9, 760,1,1,1,1, 553, 354, 232, 374, 450, 426, 944, 2,393, 143]
-let a = [2,5,2,6,7,10,8,9]
+let a = [366, 240, 866, 115,  -9, 760,1,1,1,1, 553, 354, 232, 374, 450, 426, 944, 2,393, 143]
+// let a = [2,5,2,6,7,10,8,9]
 
 // function quickSort(arr) {
 //   if(arr.length < 2) {
@@ -99,6 +99,7 @@ function quickSort3(arr, left, right) {
   arr[left] = arr[i]
   arr[i] = base
   console.log('pivot', i)
+  console.log('arr', arr)
   quickSort3(arr, left, i - 1)
   quickSort3(arr, i + 1, right)
   return arr
@@ -108,11 +109,11 @@ function quick4(arr, left, right) {
   let init = left
   let flag = arr[init]
   while(left !== right) {
-    while(flag <= arr[left] && left < right) {
-      left++
-    }
-    while(flag >= arr[right] && left < right) {
+    while(flag <= arr[right] && left < right) {
       right--
+    }
+    while(flag >= arr[left] && left < right) {
+      left++
     }
     const temp = arr[left]
     arr[left] = arr[right]
@@ -121,6 +122,7 @@ function quick4(arr, left, right) {
   arr[init] = arr[left]
   arr[left] = flag
   console.log('pivot', left)
+  console.log('arr', arr)
   return left
 }
 function quickSort4(arr, left, right) {
@@ -134,5 +136,5 @@ function quickSort4(arr, left, right) {
 
 // console.log(quickSort(a))
 // quickSort2(a,0,a.length - 1)
-console.log('快拍',quickSort3(a, 0, a.length - 1))
-// console.log('xxxx', quick4(a, 0, a.length - 1))
+// console.log('快拍',quickSort3(a, 0, a.length - 1))
+console.log('xxxx', quickSort4(a, 0, a.length - 1))
