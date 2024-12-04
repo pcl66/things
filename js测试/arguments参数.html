@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="controls">
+    <input class="input" type="text" value="123">
+  </div>
+  <script>
+    const oInput = document.querySelector('.input')
+    console.dir(oInput.value)
+    function a(a, b) {
+      console.log(arguments)
+      const c = Array.prototype.slice.call(arguments, 0, 2)
+      console.log(c)
+    }
+    a(1,2,3,4)
+    const oControls = document.querySelector('.controls')
+    const res = oControls.children[0].value
+    console.log(res)
+  </script>
+</body>
+</html>

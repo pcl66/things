@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const obj = {
+      name: 'xs',
+      age: 18,
+      mile: {
+        eat: 'rice',
+        drink: 'cola',
+        hobby: [1,2]
+      }
+    }
+    function deepClone(old) {
+      if(typeof old === 'string' | 'number') return old
+      if(({}).toString.call(old) === '[object Object]') {
+        let _new = {}
+        for(key in old) {
+          if(({}).toString.call(old[key]) === '[object Object]' || ({}).toString.call(old[key]) === '[object Array]') {
+            _new[key] = deepClone(old[key])
+            // _new = {...old, [key]: deepClone(old[key])}
+          } else {
+            // _new = {...old, [key]: old[key]}
+            _new[key] = old[key]
+          }
+        }
+        return _new
+      }
+      if(({}).toString.call(old) === '[object Array]') {
+        let _new = []
+        for (v of old) {
+          if(({}).toString.call(old[key]) === '[object Object]' || ({}).toString.call(old[key]) === '[object Array]') {
+            _new.push(deepClone(v))
+          } else {
+            _new.push(v)
+          }
+        }
+        return _new
+      }
+    }
+    const obj2 = deepClone(obj)
+    console.log(obj)
+    console.log(obj2)
+  </script>
+</body>
+</html>

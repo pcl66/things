@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .card-name {
+        /* font: {
+        family: "Open Sans", sans-serif;
+        weight: bold;
+        size: 1.8rem;
+      } */
+      }
+
+      .moveBar {
+        padding: 1rem 0.6rem;
+        border-radius: 0.5rem;
+        background-color: white;
+        display: flex;
+        gap: 0.2rem;
+        box-shadow: 1px 5px 10px #cacacab8, -1px -5px 15px #b3b3b336;
+        cursor: move;
+      }
+
+      .dot {
+        height: 0.3rem;
+        width: 0.3rem;
+        border-radius: 100%;
+        background-color: blue;
+        display: inline-block;
+      }
+
+      .container-body {
+        /* font: {
+        family: "Gilroy", sans-serif;
+        weight: normal;
+      } */
+
+        display: flex;
+        gap: 1rem;
+      }
+
+      .one-unit {
+        border: 1px solid lightgray;
+        height: 16rem;
+        width: 6rem;
+        border-radius: 100rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 0;
+        background-color: white;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .currency {
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        transform: rotate(-90deg);
+      }
+
+      .num {
+        font-size: 1.8rem;
+      }
+
+      .symbol {
+        font-size: 0.7rem;
+      }
+
+      .add-text {
+        transform: translatey(1.5rem) rotate(-90deg);
+        font-size: 0.9rem;
+      }
+
+      .add-hint {
+        opacity: 0.4;
+      }
+
+      .add-unit {
+        border-style: dashed;
+        cursor: pointer;
+      }
+
+      .selected-unit {
+        background-color: #4f46ba;
+        color: white;
+        border: 1px solid #4f46ba;
+        box-shadow: 2px 2px 4px rgba(12, 20, 136, 0.36), -2px -2px 8px rgba(27, 73, 119, 0.27);
+        z-index: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="container-header">
+        <span class="card-name">My Wallets</span>
+        <div class="moveBar">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="container-body">
+        <div class="one-unit">
+          <span class="currency">BTC</span>
+          <div>
+            <span class="num">69</span>
+            <span class="symbol">%</span>
+          </div>
+        </div>
+        <div class="one-unit">
+          <span class="currency">LTC</span>
+          <div>
+            <span class="num">82</span>
+            <span class="symbol">%</span>
+          </div>
+        </div>
+        <div class="one-unit selected-unit">
+          <span class="currency">XRP</span>
+          <div>
+            <span class="num">82</span>
+            <span class="symbol">%</span>
+          </div>
+        </div>
+        <div class="one-unit">
+          <span class="currency">BLT</span>
+          <div>
+            <span class="num">66</span>
+            <span class="symbol">%</span>
+          </div>
+        </div>
+        <div class="one-unit add-unit">
+          <span class="currency add-text">+ADD NEW</span>
+          <div>
+            <span class="add-hint">Wal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const allUnitsArr = [...document.querySelectorAll('.one-unit')]
+      // 单元拖拽时 阻止 非添加单元样式切换的事件处理
+      let clickable = true
+      let clickTimeId = 0
+
+      function handleClick(e) {
+        if (!clickable) {
+          clickable = true
+          return
+        }
+        const target = e.currentTarget
+        //两部分功能：添加单元的事件处理 和 非添加单元样式切换的事件处理
+        if (!target.classList.contains('add-unit')) {
+          //这里 单元节点 必须重新获取
+          const allUnitsArr = [...document.querySelectorAll('.one-unit')]
+          allUnitsArr.forEach(item => {
+            item.classList.remove('selected-unit')
+          })
+          target.classList.add('selected-unit')
+        } else {
+          const rootDiv = document.createElement('div')
+          rootDiv.classList.add('one-unit')
+
+          const span = document.createElement('span')
+          span.classList.add('currency')
+          span.innerHTML = 'CNY'
+
+          const div = document.createElement('div')
+          const spanInner1 = document.createElement('span')
+          spanInner1.classList.add('num')
+          spanInner1.innerHTML = '75'
+          const spanInner2 = document.createElement('span')
+          spanInner2.classList.add('symbol')
+          spanInner2.innerHTML = '%'
+          const text = document.createTextNode('\n')
+
+          div.appendChild(spanInner1)
+          div.appendChild(text)
+          div.appendChild(spanInner2)
+
+          rootDiv.appendChild(span)
+          rootDiv.appendChild(div)
+
+          e.currentTarget.parentNode.insertBefore(rootDiv, e.currentTarget.parentNode.lastElementChild)
+
+          //为新单元绑定事件
+          rootDiv.addEventListener('mousedown', handleMouseDown)
+          rootDiv.addEventListener('mouseup', handleMouseUp)
+          // rootDiv.addEventListener('transitionend', handleTransitionEnd)
+          rootDiv.addEventListener('click', handleClick)
+        }
+      }
+
+      allUnitsArr.forEach(item => {
+        item.addEventListener('click', handleClick)
+      })
+      /****************************************************
+       * 容器移动
+       *
+       * **************************************************
+       */
+      const wallet = document.querySelector('.container')
+      const moveBar = document.querySelector('.moveBar')
+      //拖拽判断：mousedown -> true ; mouseup -> false
+      let isStarted = false
+      //下面4个变量：startedPos, disX, disY 用于拖拽位移，baseDis 保存容器位置坐标
+      const startedPos = {
+        x: 0,
+        y: 0
+      }
+      const baseDis = {
+        x: 0,
+        y: 0
+      }
+      let disX = 0
+      let disY = 0
+      moveBar.addEventListener('mousedown', e => {
+        isStarted = true
+        startedPos.x = e.clientX
+        startedPos.y = e.clientY
+      })
+      moveBar.addEventListener('mouseup', e => {
+        isStarted = false
+        baseDis.x = disX
+        baseDis.y = disY
+      })
+      document.body.addEventListener('mousemove', e => {
+        if (isStarted) {
+          disX = baseDis.x + e.clientX - startedPos.x
+          disY = baseDis.y + e.clientY - startedPos.y
+
+          wallet.style.transform = `translate(${disX}px,${disY}px)`
+        }
+      })
+
+      /****************************************************
+       * 单元移动
+       *
+       * **************************************************
+       */
+      //拖拽判断：mousedown -> true ; mouseup -> false
+      let blockMoving = false
+      //startedBlockPos, blockDisX, blockDisY 用于拖拽位移
+      const startedBlockPos = {
+        x: 0,
+        y: 0
+      }
+      let blockDisX = 0
+      let blockDisY = 0
+      //目标单元的信息保存（节点、索引、宽度、单元之间的间隙）
+      let target = null
+      let targetIndex = 0
+      let blockWidth = 0
+      //默认 1rem = 16px
+      const gapWidth = 16
+      //位移时，当前索引 和 移动步数( 目标位移/(单位宽度+间隙) 取整)
+      let currentPosIndex = 0
+      let moveStep = 0
+      //判断单元处于拖拽状态
+      let isDrag = false
+
+      function handleMouseDown(e) {
+        if (e.currentTarget.classList.contains('add-unit')) {
+          return
+        }
+
+        clickTimeId = setTimeout(() => {
+          clickable = false
+        }, 200)
+
+        const allUnits = [...document.querySelectorAll('.one-unit')]
+        allUnits.forEach((item, index) => {
+          if (item === e.currentTarget) {
+            targetIndex = index
+            currentTarget = index
+          }
+        })
+
+        blockMoving = true
+
+        startedBlockPos.x = e.clientX
+        startedBlockPos.y = e.clientY
+
+        target = e.currentTarget
+        target.style.transition = 'none'
+        target.style.zIndex = 10
+
+        blockWidth = target.getBoundingClientRect().width
+      }
+
+      function handleMouseUp(e) {
+        if (e.currentTarget.classList.contains('add-unit')) {
+          return
+        }
+
+        clearTimeout(clickTimeId)
+
+        blockMoving = false
+
+        const allUnits = [...document.querySelectorAll('.one-unit')]
+
+        if (moveStep < 0 - targetIndex) {
+          moveStep = -targetIndex
+        } else if (moveStep > allUnits.length - targetIndex - 2) {
+          moveStep = allUnits.length - targetIndex - 2
+        }
+
+        target.style.transition = 'all 0.2s ease-in-out'
+        target.style.zIndex = 0
+        target.style.transform = `translateX(${moveStep * (blockWidth + gapWidth)}px)`
+        isDrag ? (handleTransitionEnd(e), (clickable = true), (isDrag = false)) : ''
+        moveStep = 0
+      }
+
+      function handleTransitionEnd(e) {
+        if (currentPosIndex !== targetIndex) {
+          const all = document.querySelectorAll('.one-unit')
+          if (currentPosIndex < 0) {
+            currentPosIndex = 0
+          } else if (currentPosIndex > all.length - 2) {
+            currentPosIndex = all.length - 2
+          }
+
+          if (currentPosIndex < targetIndex) {
+            target.parentNode.insertBefore(target, all[currentPosIndex])
+          } else {
+            target.parentNode.insertBefore(target, all[currentPosIndex + 1])
+          }
+
+          const allArr = [...all]
+          allArr.forEach(item => {
+            item.style.transition = 'none'
+            item.style.transform = 'translateX(0px)'
+          })
+
+          setTimeout(() => {
+            allArr.forEach(item => {
+              item.style.transition = 'all 0.2s ease-in-out'
+            })
+          }, 200)
+        }
+      }
+
+      /**
+       * 目标单元移动
+       * @param {HTMLElement[]} allUnits 所有单元节点
+       * @param {number} targetIndex 目标索引
+       * @param {number} disX 目标x轴位移
+       * @param {number} moveWidth 目标单元宽度（自身宽度 + 间隙）
+       */
+      function changPos(allUnits, targetIndex, disX, moveWidth) {
+        moveStep = parseInt(disX / moveWidth)
+        currentPosIndex = moveStep + targetIndex
+
+        for (let i = 0; i < allUnits.length; i++) {
+          if (i !== targetIndex) {
+            allUnits[i].style.transform = 'translateX(0px)'
+          }
+        }
+        // 这里无法知晓原先单元的位移，清除位移信息，用到 handleTransitionEnd
+        if (currentPosIndex > targetIndex) {
+          const needMoveCount = currentPosIndex - targetIndex
+          for (let i = 1; i <= needMoveCount; i++) {
+            if (targetIndex + i !== allUnits.length - 1) {
+              allUnits[targetIndex + i] ? (allUnits[targetIndex + i].style.transform = `translateX(-${moveWidth}px)`) : ''
+            }
+          }
+        } else if (currentPosIndex < targetIndex) {
+          const needMoveCount = targetIndex - currentPosIndex
+          for (let i = 1; i <= needMoveCount; i++) {
+            allUnits[targetIndex - i] ? (allUnits[targetIndex - i].style.transform = `translateX(${moveWidth}px)`) : ''
+          }
+        }
+      }
+
+      allUnitsArr.forEach(item => {
+        item.addEventListener('mousedown', handleMouseDown)
+        item.addEventListener('mouseup', handleMouseUp)
+      })
+
+      document.body.addEventListener('mousemove', e => {
+        if (blockMoving) {
+          blockDisX = e.clientX - startedBlockPos.x
+          blockDisY = e.clientY - startedBlockPos.y
+
+          isDrag = true
+
+          target.style.transform = `translate(${blockDisX}px,${blockDisY}px)`
+
+          changPos(document.querySelectorAll('.one-unit'), targetIndex, blockDisX, blockWidth + gapWidth)
+        }
+      })
+    </script>
+  </body>
+</html>

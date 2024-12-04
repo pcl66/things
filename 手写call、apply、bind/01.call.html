@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function add(a, b) {
+      console.log(this)
+      console.log(a, b)
+      return a + b
+    }
+    const obj = {
+      name: '佩奇',
+      add
+    }
+    const other = {
+      name: '12'
+    }
+    // obj.add.call(other, 1, 2)
+
+    Function.prototype.myCall = function (_this, ...args) {
+      _this.fn = this
+      // console.log(_this[func])
+      const res = _this.fn(...args)
+      delete _this.fn
+      return res
+    }
+    // Function.prototype.myApply = function(_this, args = []) {
+    //   _this.fn = this
+    //   _this.fn(...args)
+    //   delete _this.fn
+    // }
+    // const a = obj.add.myCall(other, 1, 2)
+    // console.log(a, 'a')
+    // console.log(obj.add.myApply(other, [1,2]))
+    Function.prototype.myBind = function (_this, ...args1) {
+      const that = this
+      return function (...args2) {
+        _this.fn = that
+        const res = _this.fn(...args1, ...args2)
+        delete _this.fn
+        return res
+      }
+    }
+    const c = obj.add.myBind(other, 1)
+    console.log(c)
+    console.log(c(2))
+  </script>
+</body>
+
+</html>
