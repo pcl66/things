@@ -5,18 +5,24 @@ import data2 from './data/data2.json'
 
 type RawData = typeof data1
 
-const data = [...data1.data.items, ...data2.data.items] as RawData['data']['items']
+const data = [...data2] as RawData
 
-const loadData = async () => new Promise((resolve) => {
+export type CardType = {
+  id: string
+  width: number
+  height: number
+  url: string
+}
+const loadData = async () => new Promise<CardType[]>((resolve) => {
   setTimeout(() => {
-    resolve(data)
+    resolve(data.map(item => ({id: item.picture_id, width: item.width, height: item.height, url: item.original_url})))
   }, 1000)
 })
 
 </script>
 
 <template>
-  <div>
+  <div style="width: 50vw; height: 700px; margin: 0 auto;">
     <WaterFall :load-data="loadData"/>
   </div>
 </template>
