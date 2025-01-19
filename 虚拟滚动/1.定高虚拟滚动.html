@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      height: 400px;
+      width: 250px;
+      border: 1px solid black;
+      margin: 0 auto;
+      overflow: auto;
+    }
+    .item {
+      height: 50px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="list"></div>
+  </div>
+  <script>
+    class CreateVirtualList {
+      constructor(options) {
+        const {
+          itemHeight = 50,
+          containerSelector ='',
+          listSelector = '',
+          data = []
+        } = options
+        this.itemHeight = itemHeight
+        this.oContainer = document.querySelector(containerSelector)
+        this.oList = document.querySelector(listSelector)
+        this.data = data
+        this.startIndex = 0
+        this.endIndex = Math.ceil(this.oContainer.clientHeight / this.itemHeight) + 1
+      }
+      computedEndIndex() {
+        this.endIndex = this.startIndex + Math.ceil(this.oContainer.clientHeight / this.itemHeight) + 1
+      }
+      handleScroll(e) {
+        const { scrollTop } = this.oContainer
+        this.startIndex = Math.floor(scrollTop/this.itemHeight)
+        console.log('startIndex', this.startIndex)
+        this.computedEndIndex()
+        this.oList.style.transform = `translateY(${this.startIndex*this.itemHeight}px)`
+        this.oList.style.height = (this.data.length - this.startIndex) * this.itemHeight + 'px'
+        this.renderList()
+      }
+      init() {
+        this.oContainer.onscroll = this.handleScroll.bind(this)
+        this.renderList()
+      }
+      renderList() {
+        this.oList.innerHTML = this.data.slice(this.startIndex, this.endIndex)
+        .map(v => `<div class="item">${v}</div>`)
+        .join('')
+      }
+    }
+
+    const data = Array.from({length: 100}).map((v, i) => i)
+    const virtual = new CreateVirtualList({
+      data,
+      containerSelector: '.container',
+      listSelector: '.list'
+    })
+    virtual.init()
+  </script>
+</body>
+</html>
