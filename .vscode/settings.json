@@ -1,5 +1,9 @@
 {
   "cSpell.words": [
     "nums"
-  ]
+  ],
+  "liveServer.settings.port": 5501,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "workbench.list.smoothScrolling": true,
+  "workbench.editor.swipeToNavigate": true
 }
