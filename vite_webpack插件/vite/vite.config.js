@@ -4,5 +4,5 @@ import { preloadImg } from './plugins/preload-img'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(),preloadImg({dir: 'images/*.{svg,png,jpg}',mode:'prefetch'})],
+  plugins: [vue(),preloadImg({dir: 'src/assets/*.{svg,png,jpg}',mode:'preload'})],
 })

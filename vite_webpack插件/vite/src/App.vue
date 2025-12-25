@@ -12,9 +12,12 @@ const handleClick = () => {
     <button @click="handleClick">显示图片</button>
     <!-- <img v-if="showImage" src="/images/vite.svg" class="logo" alt="Vite logo" /> -->
     <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    <img v-if="showImage" src="/images/image.png" width="300" alt="">
-    <img v-if="showImage" src="/images/image.jpg" width="300" alt="">
     <img v-if="showImage" src="./assets/image2.png" width="300" alt="">
+    <img v-if="showImage" src="./assets/1.jpg" width="300" alt="">
+    <img v-if="showImage" src="./assets/2.jpg" width="300" alt="">
+    <img v-if="showImage" src="./assets/3.jpg" width="300" alt="">
+    <img v-if="showImage" src="./assets/4.jpg" width="300" alt="">
+    <img v-if="showImage" src="./assets/5.jpg" width="300" alt="">
   </div>
 </template>
 

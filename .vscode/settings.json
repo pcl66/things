@@ -5,5 +5,13 @@
   "liveServer.settings.port": 5501,
   "editor.cursorSmoothCaretAnimation": "on",
   "workbench.list.smoothScrolling": true,
-  "workbench.editor.swipeToNavigate": true
+  "workbench.editor.swipeToNavigate": true,
+  "debug.javascript.terminalOptions": {
+  "resolveSourceMapLocations": 
+    [
+      "${workspaceFolder}/**",
+      "!**/node_modules/**",
+      "**/node_modules/.vite-temp/**"
+    ]
+  }
 }
