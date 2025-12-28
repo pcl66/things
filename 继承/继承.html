@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型链继承
+    function Parent1() {
+      this.name = 'parent1'
+      this.hobby = ['sleep']
+    }
+    Parent1.prototype.getName = function() {
+      return this.name
+    }
+    function Child1() {
+      this.name = 'child1'
+      this.xx = ['xx']
+    }
+    const p1 = new Parent1()
+    console.log('p1', p1.getName())
+    Child1.prototype = new Parent1()
+    const c1 = new Child1()
+    const c2 = new Child1()
+    console.log('原型链继承', c1.getName(), c1.hobby, c1.name)
+    c1.hobby.push('eat')
+    c1.xx.push('yy')
+    console.log(c1.hobby)
+    console.log(c2.hobby)
+    console.log(c1.xx)
+    console.log(c2.xx)
+    // 构造函数继承
+    function Parent2() {
+      this.name = 'parent2'
+    }
+    Parent2.prototype.a = 'p2'
+    function Child2() {
+      Parent2.call(this)
+    }
+    const child22 = new Child2()
+    console.log(child22.name, child22.a)
+
+    // 组合继承
+    // 寄生组合继承
+  </script>
+</body>
+</html>   
