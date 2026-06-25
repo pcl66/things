@@ -148,7 +148,7 @@
         <mxCell id="_xZ0bWRyeWFBwizhGVfw-40" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="task / knowledge / chitchat 只能命中一条" vertex="1">
           <mxGeometry height="90" width="150" x="85" y="1400" as="geometry" />
         </mxCell>
-        <mxCell id="_xZ0bWRyeWFBwizhGVfw-46" edge="1" parent="1" source="_xZ0bWRyeWFBwizhGVfw-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" value="">
+        <mxCell id="_xZ0bWRyeWFBwizhGVfw-46" edge="1" parent="1" source="_xZ0bWRyeWFBwizhGVfw-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="_xZ0bWRyeWFBwizhGVfw-45" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="70" y="1610" as="targetPoint" />
           </mxGeometry>
